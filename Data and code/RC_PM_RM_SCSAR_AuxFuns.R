@@ -145,12 +145,6 @@ Cl_spatialReg <- function(Y, X, W, Sp, Wstand=FALSE, G=2, Phi=1, maxitr=100, typ
     if (type=="lagsarlm"){
       LL <- matrix(NA, n, G)
       for (g in 1:G) {
-        #for (i in 1:n) { Così non funziona, tutte unità in 1 gruppo subito
-        #Wmatrix <- W[c(Y == Y[i] | Ind == g), c(Y == Y[i] | Ind == g)]
-        #Yvec <- Y[Y == Y[i] | Ind == g]
-        #XXmat <-  XX[Y == Y[i] | Ind == g, ]
-        #LL[i,g] <- sarlogLik(Yvec,XXmat,Wmatrix,Beta[-1,g],Beta[1,g],Sig[g])
-        #}
         LL[,g] <- as.vector(sarlogLik_i(Y,XX,W,Beta[-1,g],Beta[1,g],Sig[g]))
       }
       Q <- LL + Phi*Pen   # penalized likelihood
